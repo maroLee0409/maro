@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+table{
+	align:center;
+	border: 1;	
+}
+.product_img{
+	width : 100px;
+}
+.producter-th{
+	border:1;
+	border-bottom:1px solid #aaa;
+}
+.product-th-userNo{
+    min-width: 45px;
+}
+.product-th-productNo{
+	min-width: 45px;
+}
+.product-th-categoryNo{
+    min-width: 85px;
+}
+.product-th-name{
+  	min-width: 45px;
+}
+
+.product-th-info{
+  	min-width: 85px;	
+}
+.product-th-img{
+  	min-width: 85px;	
+}
+.product-th-img-info{
+  	min-width: 85px;	
+}
+.product-th-price{
+  	min-width: 85px;	
+}
+.product-th-stock{
+  	min-width: 85px;	
+}
+.product-th-createAt{
+  	min-width: 85px;	
+}
+.product-th-updateAt{
+	min-width:70px;	
+}
+.product-th-views{
+	min-width: 55px;
+}
+.product-th-status{
+    min-width: 45px;
+}
+.product-th-sales{
+    min-width: 45px;
+}
+.product-th-createAt, .product-th-updateAt, .product-th-views, .product-th-status{
+	padding: 10px;
+}
+td:last-child {
+    border: 1px solid #aaa;
+}
+.hover-row:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+    }
+
+.no-hover-row:hover {
+    background-color: transparent; /* 기본 배경색 유지 */
+    cursor: default; /* 커서 모양 기본으로 설정 */
+}
+	

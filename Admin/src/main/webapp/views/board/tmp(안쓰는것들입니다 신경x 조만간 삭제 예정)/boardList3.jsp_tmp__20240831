@@ -1,0 +1,334 @@
+<%@page import="com.global.board.model.BoardDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList,java.util.List ,com.global.board.model.*"%>
+<%@ page import="com.global.utils.StringUtils" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 리스트</title>
+
+<script type="text/javascript">
+ 
+//JavaScript 함수: 필터 UI 표시/숨기기
+function toggleFilter() {
+    const filterContainer = document.querySelector('.filter-container');
+    const mainSearchBtn = document.querySelector('.search-btn-main');
+    const filterSearchBtn = document.querySelector('.search-btn-filter');
+
+    if (filterContainer.style.display === 'none' || filterContainer.style.display === '') {
+        filterContainer.style.display = 'block';
+        mainSearchBtn.style.display = 'none';  // 원래 위치의 검색 버튼 숨김
+        filterSearchBtn.style.display = 'inline-block';  // 필터 내 검색 버튼 표시
+    } else {
+        filterContainer.style.display = 'none';
+        mainSearchBtn.style.display = 'inline-block';  // 원래 위치의 검색 버튼 표시
+        filterSearchBtn.style.display = 'none';  // 필터 내 검색 버튼 숨김
+    }
+}
+
+ 
+ 
+// JavaScript 함수: 클릭한 행의 ID와 userType을 가져와서 상세 페이지로 이동
+function goToDetailPage(event) {
+    const target = event.currentTarget;
+    const No = target.getAttribute('data-id');
+    const userType = target.getAttribute('data-user-type');
+    const currentPage = ${pi.currentPage};  // pi.currentPage를 자바스크립트 변수로 설정
+    const status = '${status}';
+    
+    if (No) {
+        window.location.href = '${contextPath}/boardDetailForm.do?no=' + No + '&userType=' + userType + '&status=' + status + '&currentPage=' + currentPage;
+    }
+}
+
+// 모든 행에 클릭 이벤트 리스너 추가
+document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('table tr[data-id]');
+
+    rows.forEach(row => {
+        row.addEventListener('click', goToDetailPage);
+    });
+});
+</script>
+<style type="text/css">
+
+.search-container {
+    width: 600px;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+}
+
+.search-input {
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    border: 0;
+    background: transparent;
+    font-size: 16px;
+    letter-spacing: -.25pt;
+    padding-block-start: 3px;
+    color: #000;
+}
+
+.content-title {
+    display: flex;
+}
+
+.search-btn, .filter-btn {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    margin: 0 8px;
+    width: 90px;
+}
+
+.filter-container {
+    display: none; /* 기본적으로 숨김 */
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #e9ecef;
+}
+
+
+
+.filter-btn-container {
+    text-align: center; /* 버튼을 가운데 정렬 */
+    margin-top: 20px; /* 상태 필터와 간격 조절 */
+}
+
+.filter-container .search-btn-filter {
+    display: none; /* 기본적으로 숨김 */
+    margin-top: 20px; /* 상태 필터와 더 멀어지게 간격 추가 */
+}
+
+/* 모든 필터 라벨에 공통 스타일 적용 */
+.filter-label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 모던하고 가독성 좋은 글꼴 */
+    font-size: 15px; /* 약간 더 큰 글씨 크기 */
+    font-weight: 600; /* 중간 정도의 굵기 */
+    color: #444; /* 약간 밝은 글씨 색상 */
+    margin-bottom: 8px; /* 라벨과 입력 필드 사이의 간격을 넓혀 가독성 향상 */
+    letter-spacing: 0.5px; /* 글자 간격을 살짝 넓혀 가독성 향상 */
+}
+
+/* 카테고리 필터 라벨에만 추가 스타일 적용 */
+.filter-category-label {
+    color: #0056b3; /* 더 깊고 차분한 파란색 */
+    text-transform: uppercase; /* 대문자로 변환하여 시각적 구분 강화 */
+    letter-spacing: 1px; /* 글자 간격을 넓혀서 강조 */
+}
+
+/* 상태 필터 라벨에만 추가 스타일 적용 */
+.filter-status-label {
+    color: #218838; /* 더 차분한 녹색으로 가독성 강화 */
+    font-style: italic; /* 글씨 기울임 */
+    text-transform: uppercase; /* 대문자로 변환하여 강조 */
+    letter-spacing: 1px; /* 글자 간격을 넓혀서 강조 */
+}
+
+
+
+.filter-item {
+    margin-bottom: 15px;
+}
+
+.filter-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.filter-input, .filter-select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.btn-w {
+    width: 100px;
+}
+
+.btn-h {
+    height: 40px;
+}
+
+
+</style>
+
+</head>
+<body>
+	<div class="title">
+      	<h1>전체 게시판</h1>
+    </div>	
+    <div align="center">
+        
+        <div class="spacer"></div>
+
+<!-- 검색 바 추가 -->
+<div class="search-container">
+    <form action="boardSearchList.do" method="get">
+        <div class="content-title form-group">
+            <input type="text" name="searchKeyword" class="search-input" placeholder="검색어를 입력하세요" 
+                   value="${searchKeyword}"> <!-- 기존 검색어 값 유지 -->
+            <button type="submit" class="btn search-btn search-btn-main btn-w btn-h">검색</button> <!-- 검색 버튼 기본 위치 -->
+            <button type="button" class="btn filter-btn btn-w btn-h" onclick="toggleFilter()">필터</button>
+        </div>
+        
+        <!-- 필터 UI 추가 -->
+        <div id="filterContainer" class="filter-container" style="display: none;">
+            <!-- 카테고리 필터 -->
+            <div class="filter-item">
+                <label for="categoryFilter" class="filter-label filter-category-label">카테고리</label>
+                <select id="categoryFilter" name="categoryNo" class="filter-select">
+                    <option value="">전체</option>
+                    <!-- 카테고리 옵션들 동적 생성 -->
+                    <c:forEach var="category" items="${categoryList}">
+                        <option value="${category.categoryNo}" 
+                                <c:if test="${category.categoryNo == filter.categoryNo}">selected</c:if>> 
+                                ${category.name}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <!-- 사용자 번호 필터 -->
+            <div class="filter-item">
+                <label for="userNoFilter" class="filter-label">사용자 번호</label>
+                <input type="number" id="userNoFilter" name="userNo" class="filter-input" 
+                       placeholder="사용자 번호" value="${filter.userNo}">
+            </div>
+
+            <!-- 조회수 필터 -->
+            <div class="filter-item">
+                <label for="minViewsFilter" class="filter-label">최소 조회수</label>
+                <input type="number" id="minViewsFilter" name="minViews" class="filter-input" 
+                       placeholder="최소 조회수" value="${filter.minViews}">
+            </div>
+            <div class="filter-item">
+                <label for="maxViewsFilter" class="filter-label">최대 조회수</label>
+                <input type="number" id="maxViewsFilter" name="maxViews" class="filter-input" 
+                       placeholder="최대 조회수" value="${filter.maxViews}">
+            </div>
+
+            <!-- 작성일 필터 -->
+            <div class="filter-item">
+                <label for="startDateFilter" class="filter-label">작성일 시작</label>
+                <input type="date" id="startDateFilter" name="startDate" class="filter-input" 
+                       value="${filter.startDate}">
+            </div>
+            <div class="filter-item">
+                <label for="endDateFilter" class="filter-label">작성일 종료</label>
+                <input type="date" id="endDateFilter" name="endDate" class="filter-input" 
+                       value="${filter.endDate}">
+            </div>
+
+            <!-- 상태 필터 -->
+            <div class="filter-item">
+                <label for="statusFilter" class="filter-label filter-status-label">상태</label>
+                <select id="statusFilter" name="isDeleted" class="filter-select">
+                    <option value="">전체</option>
+                    <option value="N" <c:if test="${filter.isDeleted == 'N'}">selected</c:if>>정상</option>
+                    <option value="Y" <c:if test="${filter.isDeleted == 'Y'}">selected</c:if>>삭제됨</option>
+                </select>
+            </div>
+
+            <!-- 검색 버튼을 필터 컨테이너 안으로 이동 -->
+            <div class="filter-item filter-btn-container">
+                <button type="submit" class="btn search-btn search-btn-filter btn-w btn-h">검색</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+        <!-- 게시판 테이블 -->
+        <table border="1">
+            <tr>
+                <td class="table_header button" colspan="9" align="right">전체 게시글 수
+                    수 : ${count}</td>
+            </tr>
+            <tr>
+                <th>BoardNo.</th>
+                <th>UserID. <span class="subtitle">(userNo)</span></th>
+                <th>Category</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성일</th>
+                <th>수정일</th>
+                <th>조회수</th>
+                <th>상태</th>
+            </tr>
+            <c:choose>
+                <c:when test="${not empty list}">
+                    <c:forEach items="${list}" var="board">
+                        <c:set var="truncatedTitle" value="${fn:length(board.title) > 20 ? fn:substring(board.title, 0, 20) + '...' : board.title}" />
+                        <c:set var="truncatedContent" value="${fn:length(board.content) > 30 ? fn:substring(board.content, 0, 30) + '...' : board.content}" />
+
+                        <tr class="trlist" data-id="${board.boardNo}" data-user-type="${board.userType}">
+                            <td>${board.boardNo}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${board.userNo == null}">
+                                        null
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${board.userId}
+                                        <span class="subtitle">(${board.userNo})</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>${board.categoryName} <span class="subtitle">(${board.categoryNo})</span></td>
+                            <td>${truncatedTitle}</td>
+                            <td>${StringUtils.stripHtml(truncatedContent)}</td>
+                            <td><fmt:formatDate value="${board.createAt}" /></td>
+                            <td><fmt:formatDate value="${board.updateAt}" /></td>
+                            <td>${board.views}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${board.isDeleted == 'N'}">
+                                        <c:set var="status" value="정상" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="status" value="삭제됨" />
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:out value="${status}" />
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td colspan="10" align="center">
+                            <h3>게시판 데이터가 없습니다.</h3>
+                        </td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
+            <tr>
+                <td class="table_bottom button" colspan="9" align="center">
+                    <input type="button" class="btn" value="게시글 작성" onclick="location.href='boardInsertForm.do'">
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

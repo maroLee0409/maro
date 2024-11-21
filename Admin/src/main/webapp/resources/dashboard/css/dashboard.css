@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+/* 대시보드 스타일 */
+.dashboard-container {
+	margin: 4rem auto;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+}
+
+.section {
+	padding: 20px;
+	background: #ffffff; /* 섹션 배경색 */
+	border-radius: 12px; /* 둥근 모서리 */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 깊이 있는 그림자 */
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.section h2 {
+	margin: 0 0 20px; /* 섹션 제목의 마진 조정 */
+	font-size: 24px;
+	font-weight: 600;
+	color: #333; /* 제목 색상 */
+}
+
+.dashboard-card {
+	background: #ffffff; /* 카드 배경색 */
+	border-radius: 12px; /* 둥근 모서리 */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 깊이 있는 그림자 */
+	padding: 20px;
+	box-sizing: border-box;
+	transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 효과 */
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.dashboard-card:hover {
+	transform: translateY(-10px); /* 마우스 오버 시 카드가 위로 이동 */
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* 강조된 그림자 */
+}
+
+.chart-container {
+	height: 250px;
+}
+
+.table-container {
+	overflow-x: auto;
+}
+
+.table-container table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #ddd; /* 테이블 행 구분선 */
+}
+
+.table-container th {
+	background-color: #f4f4f4; /* 헤더 배경색 */
+	font-weight: 600;
+	color: #333; /* 헤더 텍스트 색상 */
+}
+
+.table-container tr:hover {
+	background-color: #f9f9f9; /* 마우스 오버 시 배경색 */
+}
+
+/* 테이블이 포함된 섹션을 2칸 차지하도록 설정 */
+.wide-section {
+	grid-column: span 2;
+}

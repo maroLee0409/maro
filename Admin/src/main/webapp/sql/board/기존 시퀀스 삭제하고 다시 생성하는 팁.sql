@@ -1,0 +1,12 @@
+-- 1. 기존 시퀀스 삭제
+DROP SEQUENCE SEQ_BOARD_NO;
+
+-- 2. LAST_NUMBER를 4로 설정하여 시퀀스 재생성
+CREATE SEQUENCE SEQ_BOARD_NO
+  START WITH 4 -- 시작하고자 하는 숫자 ( 나는 4번부터 시작할거야. )
+  INCREMENT BY 1
+  MINVALUE 1
+  MAXVALUE 9999999999999999999999999999
+  NOCYCLE
+  NOCACHE;  -- 필요에 따라 CACHE를 설정할 수 있음
+

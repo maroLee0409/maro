@@ -1,0 +1,111 @@
+@charset "UTF-8";
+
+
+/* 레이아웃 스타일 */
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* 전반적인 레이아웃 스타일 */
+.content {
+	max-width: 900px;
+	margin: 50px 446px;
+	padding: 30px;
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 제목 스타일 */
+.content-title {
+	font-size: 2.5rem;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 15px;
+	padding-bottom: 10px;
+}
+
+/* 작성자 정보 및 날짜 스타일 */
+.content-info {
+	margin-bottom: 30px;
+	color: #888;
+	font-size: 0.95rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* 본문 스타일 */
+.content-body {
+	font-size: 1.1rem;
+	line-height: 1.8;
+	color: #444;
+	background-color: #fafafa;
+	padding: 25px;
+	border-radius: 8px;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+	white-space: pre-wrap;
+}
+
+/* 카테고리 스타일 */
+.category-label {
+	font-size: 1rem;
+	color: #5a5a5a;
+	background-color: #f0f0f0;
+	padding: 5px 10px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	display: inline-block;
+}
+
+.info{
+	text-align: right !important;
+}
+
+.table-container, .board-container {
+    flex-grow: 1; /* 부모 요소가 flexbox라면 이 속성을 추가하여 가로 영역을 채우도록 설정 */
+    height: auto; /* 자동 높이 조정 */
+}
+
+.board-container{
+	/* width:1250px; */
+}
+
+.board-td {
+    border-left: 0;
+    border-right: 0;
+    /* 다른 td에 필요한 스타일 추가 */
+}
+.border-th{
+	border:0;
+	border-bottom:1px solid #aaa;
+}
+.board-th-boardNo{
+	min-width: 96px;
+}
+.board-th-title{
+  	min-width: 258px;
+	
+}
+
+.board-th-createAt{
+  	min-width: 85px;	
+}
+.board-th-updateAt{
+	min-width:70px;
+	
+}
+.board-th-views{
+	min-width: 55px;
+}
+.board-th-status{
+    min-width: 45px;
+    
+}
+
+.board-th-createAt, .board-th-updateAt, .board-th-views, .board-th-status{
+	padding: 10px;
+}

@@ -1,0 +1,46 @@
+@charset "UTF-8";
+.sidebar {
+    flex-basis: 275px; /* 사이드바의 폭을 고정 */
+    background-color: #ffffff; /* 배경색을 밝은 흰색으로 변경 */
+    padding: 20px;
+    margin: 30px;
+    border-radius: 12px; /* 둥근 모서리를 더 강조 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 그림자 효과를 강화 */
+    position: sticky; /* 스크롤에 따라 고정 */
+    top: 20px; /* 스크롤 시 윗쪽에서 20px 떨어진 위치에 고정 */
+    align-self: flex-start; /* 사이드바가 컨테이너의 시작 부분에 고정되도록 설정 */
+}
+
+.sidebar h3 {
+    margin-bottom: 15px; /* 제목과 리스트 사이의 간격 조정 */
+    font-size: 20px; /* 제목 크기를 살짝 키움 */
+    font-weight: bold;
+    color: #343a40; /* 다크 그레이 색상으로 변경 */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* 리스트 아이템 간의 간격 조정 */
+}
+
+.sidebar ul li {
+    margin-bottom: 15px; /* 리스트 아이템 간 간격을 넓힘 */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #007bff; /* 기본 링크 색상 유지 */
+    font-weight: 500;
+    font-size: 16px; /* 링크 텍스트 크기 약간 키움 */
+    display: block;
+    padding: 8px 12px; /* 링크에 패딩을 추가해 클릭 영역 확장 */
+    border-radius: 8px; /* 링크 아이템의 모서리를 둥글게 */
+    transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 색상 전환 효과 추가 */
+}
+
+.sidebar ul li a:hover {
+    background-color: #e9ecef; /* 호버 시 배경색 변경 */
+    color: #0056b3; /* 호버 시 텍스트 색상을 약간 더 어둡게 */
+    text-decoration: none; /* 텍스트 데코레이션 유지 */
+}

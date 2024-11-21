@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+.title {
+    text-align: center;
+}
+
+.subtitle {
+	font-size: 0.8em; /* 텍스트 크기를 조정 */
+	white-space: nowrap; /* 줄바꿈 방지 */
+	color: #888;
+}
+
+.breadcrumb {
+	font-size: 1rem;
+    color: #555;
+    padding: 8px 16px;
+    border-radius: 4px;
+    list-style: none;
+    display: inline;
+    background-color: #f9f9f9;
+}
+
+.breadcrumb li {
+    display: inline;
+    font-weight: 500;
+    user-select: none; /* 드래그 방지, 경로 텍스트 선택 방지 */
+}
+
+.breadcrumb li+li:before {
+    content: ">";
+    padding: 0 8px;
+    color: #888;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+    color: #0056b3; /* 링크에 호버 시 색상 변경 */
+}
+
+.breadcrumb .active {
+    color: #0056b3;
+    
+    padding: 5px 10px; /* 강조된 부분의 패딩 조정 */
+    border-radius: 4px; /* 둥근 모서리로 디자인 */
+    font-weight: bold; /* 현재 위치를 강조하기 위해 굵은 글씨체 */
+    text-decoration: none; /* 밑줄 제거 */
+    
+}
+
+/* 공백 추가 */
+.spacer {
+	margin-bottom: 20px;
+}
+/* 작성자 라벨 스타일 */
+.author-label {
+    font-weight: bold;
+   	color: #555555; 
+    margin-left: 5px;
+    font-size: 12px;
+    background-color: #c8e6c9; /* 배경색: 밝은 초록색 */
+    padding: 3px 4px;
+    border-radius: 20px;
+}
+/* 댓글 수 */
+.commentCount {
+    font-size: 0.9em;
+    color: #007bff;
+    margin-left: 5px;
+}

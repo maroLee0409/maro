@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+/* 페이지네이션 컨테이너 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* 페이지네이션 버튼 스타일 */
+.pagination-button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333; /* 텍스트 색상을 어두운 회색으로 변경 */
+    background-color: #e0e0e0; /* 버튼 배경색을 밝은 회색으로 변경 */
+    border: 1px solid #ccc; /* 버튼 테두리 색상 */
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+/* 페이지네이션 버튼 호버 효과 */
+.pagination-button:hover,
+.pagination-button:focus {
+    background-color: #c0c0c0; /* 호버 시 배경색을 약간 어두운 회색으로 변경 */
+    color: #000; /* 텍스트 색상을 검정으로 변경 */
+    outline: none;
+}
+
+/* 현재 페이지 스타일 */
+.pagination-button.current {
+    background-color: #b0b0b0; /* 현재 페이지 버튼 배경색을 다소 어두운 회색으로 변경 */
+    color: #fff; /* 현재 페이지 텍스트 색상을 흰색으로 변경 */
+    cursor: default;
+}
+
+/* 비활성화된 버튼 스타일 */
+.pagination-button.disabled {
+    background-color: #d0d0d0; /* 비활성화된 버튼 배경색을 연한 회색으로 변경 */
+    color: #666666; /* 비활성화된 버튼 텍스트 색상 */
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* 버튼 간격 조정 */
+.pagination-button + .pagination-button {
+    margin-left: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .pagination-button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
